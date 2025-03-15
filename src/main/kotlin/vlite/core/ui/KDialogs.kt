@@ -1,6 +1,7 @@
 package vlite.core.ui
 
 import com.github.mvysny.karibudsl.v10.VaadinDsl
+import com.github.mvysny.karibudsl.v10.karibuDslI18n
 import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog
@@ -22,11 +23,11 @@ import com.vaadin.flow.component.confirmdialog.ConfirmDialog
  * ```
  */
 @VaadinDsl
-public fun ConfirmDialog.confirmButton(
+public fun ConfirmDialog.setConfirm(
     text: String? = null,
     icon: Component? = null,
     id: String? = null,
-    block: (@VaadinDsl Button).() -> Unit
+    block: (@VaadinDsl Button).() -> Unit = {}
 ) {
     setConfirmButton(Button(text, icon).apply {
         if (text != null) this.text = text
@@ -38,6 +39,9 @@ public fun ConfirmDialog.confirmButton(
 
 // TODO PR
 /**
+ * Adds a cancel button to the dialog; the dialog is closed when the button is clicked.
+ * @param buttonText the caption of the button.
+ *
  * Example of usage:
  * ```kotlin
  * cancelButton("Cancel", VaadinIcon.ARROW_BACKWARD.create()) {
@@ -47,19 +51,28 @@ public fun ConfirmDialog.confirmButton(
  *   }
  *
  * }
+ *
  * ```
  */
 @VaadinDsl
-public fun ConfirmDialog.cancelButton(
-    text: String? = null,
+public fun ConfirmDialog.setCloseOnCancel(
+    buttonText: String? = karibuDslI18n("cancel"),
     icon: Component? = null,
     id: String? = null,
-    block: (@VaadinDsl Button).() -> Unit
+    block: (@VaadinDsl Button).() -> Unit = {}
 ) {
-    setCancelButton(Button(text, icon).apply {
-        if (text != null) this.text = text
+/*
+    setCancelButton(Button(buttonText, icon).apply {
+        if (buttonText != null) this.text = buttonText
         if (icon != null) this.icon = icon
         if (id != null) setId(id)
         block()
     })
+*/
+    /**
+     * PRB: setCancelButton(component: Component) is not displayed
+     * Temporary: setCancelButton("Cancel") { close() }
+     * Solution: TODO issue to Vaadin github repo
+     */
+    setCancelButton(buttonText) { close() }
 }

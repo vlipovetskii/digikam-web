@@ -6,7 +6,8 @@ import com.github.mvysny.karibudsl.v23.openConfirmDialog
 import com.vaadin.flow.component.icon.VaadinIcon
 import kotlinx.css.Color
 import kotlinx.css.backgroundColor
-import vlite.core.ui.confirmButton
+import vlite.core.ui.setCloseOnCancel
+import vlite.core.ui.setConfirm
 import vlite.digikamweb.domain.objects.PersonName
 import vlite.digikamweb.ui.base.i18n.AppI18NProvider
 import java.util.*
@@ -49,7 +50,7 @@ fun PersonName.openRenameExistingPersonPhotoConfirmDialog(
      */
     openConfirmDialog(I18nRenameExistingPersonPhotoConfirmDialog.PersonPhotoWithTheNameAlreadyExists.translation(locale).format(this.value), text) {
 
-        confirmButton(I18nRenameExistingPersonPhotoConfirmDialog.RenameButton.translation(locale), VaadinIcon.CHECK.create()) {
+        setConfirm(I18nRenameExistingPersonPhotoConfirmDialog.RenameButton.translation(locale), VaadinIcon.CHECK.create()) {
 
             css {
                 backgroundColor = Color.red
@@ -78,12 +79,7 @@ fun PersonName.openRenameExistingPersonPhotoConfirmDialog(
                 }
             )
         */
-        /**
-         * PRB: setCancelButton(component: Component) is not displayed
-         * WO: setCancelButton("Cancel") { close() }
-         * Solution: TODO issue to Vaadin github repo
-         */
-        setCancelButton(I18nRenameExistingPersonPhotoConfirmDialog.CancelButton.translation(locale)) { close() }
+        setCloseOnCancel(I18nRenameExistingPersonPhotoConfirmDialog.CancelButton.translation(locale))
 
     }
 
