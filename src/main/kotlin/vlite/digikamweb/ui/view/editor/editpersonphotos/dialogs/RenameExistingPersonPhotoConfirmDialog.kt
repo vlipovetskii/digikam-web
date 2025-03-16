@@ -1,13 +1,13 @@
 package vlite.digikamweb.ui.view.editor.editpersonphotos.dialogs
 
-import com.github.mvysny.karibudsl.v10.css
+import com.github.mvysny.karibudsl.v10.button
 import com.github.mvysny.karibudsl.v10.onClick
 import com.github.mvysny.karibudsl.v23.openConfirmDialog
+import com.vaadin.flow.component.button.Button
 import com.vaadin.flow.component.icon.VaadinIcon
-import kotlinx.css.Color
-import kotlinx.css.backgroundColor
-import vlite.core.ui.setCloseOnCancel
-import vlite.core.ui.setConfirm
+import vlite.core.ui.buildSingleComponent
+import vlite.core.ui.setCloseOnCancelButton
+import vlite.core.ui.setConfirmIsDanger
 import vlite.digikamweb.domain.objects.PersonName
 import vlite.digikamweb.ui.base.i18n.AppI18NProvider
 import java.util.*
@@ -50,36 +50,26 @@ fun PersonName.openRenameExistingPersonPhotoConfirmDialog(
      */
     openConfirmDialog(I18nRenameExistingPersonPhotoConfirmDialog.PersonPhotoWithTheNameAlreadyExists.translation(locale).format(this.value), text) {
 
-        setConfirm(I18nRenameExistingPersonPhotoConfirmDialog.RenameButton.translation(locale), VaadinIcon.CHECK.create()) {
-
-            css {
-                backgroundColor = Color.red
-            }
-
-            onClick {
-                onConfirmButtonClick()
-            }
-
-        }
-
-        // setConfirmIsDanger()
-        /*
-                                            cancelButton("Cancel", VaadinIcon.ARROW_BACKWARD.create()) {
-                                                onClick {
-                                                    this@openConfirmDialog.close()
-                                                }
-                                            }
-        */
-        /*
-            setCancelButton(
-                Button("Cancel", VaadinIcon.ARROW_BACKWARD.create()).apply {
+        setConfirmButton(
+            buildSingleComponent {
+                button(
+                    I18nRenameExistingPersonPhotoConfirmDialog.RenameButton.translation(locale),
+                    VaadinIcon.CHECK.create()
+                ) {
+                    setConfirmIsDanger()
                     onClick {
-                        close()
+                        onConfirmButtonClick()
                     }
                 }
+            }
+        )
+
+        setCloseOnCancelButton(buildSingleComponent {
+            button(
+                I18nRenameExistingPersonPhotoConfirmDialog.CancelButton.translation(locale),
+                VaadinIcon.ARROW_BACKWARD.create()
             )
-        */
-        setCloseOnCancel(I18nRenameExistingPersonPhotoConfirmDialog.CancelButton.translation(locale))
+        } as Button)
 
     }
 
