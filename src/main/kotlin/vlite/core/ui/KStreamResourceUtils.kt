@@ -1,5 +1,6 @@
 package vlite.core.ui
 
+import com.github.mvysny.karibudsl.v10.VaadinDsl
 import com.vaadin.flow.server.InputStreamFactory
 import com.vaadin.flow.server.StreamResource
 import java.io.ByteArrayInputStream
@@ -8,7 +9,7 @@ import java.io.InputStream
 // TODO PR
 /**
  * [toStreamResource] shorthand for convenience
- * See comments on [StreamResource] constructor
+ * See also comments on [StreamResource] constructor
  *
  * Example of usage:
  * ```kotlin
@@ -17,7 +18,8 @@ import java.io.InputStream
  * image("foo.txt".createStreamResource { "foo".byteInputStream() })
  * ```
  */
-fun String.createStreamResource(getStream: () -> InputStream) =
+@VaadinDsl
+public fun String.createStreamResource(getStream: () -> InputStream) =
     StreamResource(
         this,
         InputStreamFactory {
@@ -26,6 +28,7 @@ fun String.createStreamResource(getStream: () -> InputStream) =
     )
 
 // TODO PR
+@VaadinDsl
 /**
  * [toStreamResource] shorthand for convenience
  *
@@ -36,7 +39,7 @@ fun String.createStreamResource(getStream: () -> InputStream) =
  * image(imageData.toStreamResource(imageName, "image/jpeg"), imageName)
  * ```
  */
-fun ByteArray.toStreamResource(name: String, contentType: String) = run {
+public fun ByteArray.toStreamResource(name: String, contentType: String) = run {
     name.createStreamResource { ByteArrayInputStream(this) }.apply {
         setContentType(contentType)
     }

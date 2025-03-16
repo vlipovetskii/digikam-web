@@ -14,11 +14,19 @@ import com.vaadin.flow.component.icon.VaadinIcon
 /**
  * Sets the confirm button as dangerous, e.g. when you're confirming a deletion action
  * that can not be reversed.
+ *
+ * Example of usage:
+ * ```kotlin
+ * setConfirmButton(buildSingleComponent { button("Delete", VaadinIcon.CHECK.create()) {
+ *          setConfirmIsDanger()
+ *          onClick {...}
+ *      }
+ * })
+ * ```
  */
 public fun Button.setConfirmIsDanger() {
     addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY)
 }
-
 
 // TODO PR
 /**
@@ -54,6 +62,6 @@ fun ConfirmDialog.standardCloseOnCancelButton(text: String? = null, icon: Icon? 
     buildSingleComponent {
         button(
             text,
-            VaadinIcon.ARROW_BACKWARD.create()
+            icon
         )
     } as Button
