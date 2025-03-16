@@ -1,13 +1,9 @@
 package vlite.digikamweb.ui.base.dialogs
 
-import com.github.mvysny.karibudsl.v10.button
-import com.github.mvysny.karibudsl.v10.onClick
 import com.github.mvysny.karibudsl.v23.openConfirmDialog
-import com.vaadin.flow.component.button.Button
-import com.vaadin.flow.component.icon.VaadinIcon
-import vlite.core.ui.buildSingleComponent
-import vlite.core.ui.setCloseOnCancelButton
-import vlite.core.ui.setConfirmIsDanger
+import vlite.core.ui.setCloseOnCancel
+import vlite.core.ui.standardCloseOnCancelButton
+import vlite.core.ui.standardConfirmButton
 import vlite.digikamweb.ui.base.i18n.AppI18NProvider
 import java.util.*
 
@@ -43,27 +39,12 @@ fun String.openDeleteItemConfirmDialog(
     openConfirmDialog(this, text) {
 
         setConfirmButton(
-            buildSingleComponent {
-                button(
-                    I18nDeleteItemConfirmDialog.DeleteButton.translation(locale),
-                    VaadinIcon.CHECK.create()
-                ) {
-                    setConfirmIsDanger()
-                    onClick {
-                        onConfirmButtonClick()
-                    }
-                }
-            }
-        )
-
-        setCloseOnCancelButton(buildSingleComponent {
-            button(
-                I18nDeleteItemConfirmDialog.CancelButton.translation(locale),
-                VaadinIcon.ARROW_BACKWARD.create()
+            standardConfirmButton(
+                I18nDeleteItemConfirmDialog.DeleteButton.translation(locale),
+                onConfirmButtonClick = onConfirmButtonClick
             )
-        } as Button)
-
+        )
+        setCloseOnCancel(standardCloseOnCancelButton(I18nDeleteItemConfirmDialog.CancelButton.translation(locale)))
     }
-
 }
 
