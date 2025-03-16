@@ -68,8 +68,23 @@ public fun <C : Component> (@VaadinDsl Scroller).content(block: (@VaadinDsl HasC
 }
 
 // TODO PR
+/**
+ * Example of usage:
+ * ```kotlin
+ * upload(...) {
+ *
+ *  uploadButton = uploadButton(buildSingleComponent { button() })
+ *
+ * }
+ * setConfirmButton(buildSingleComponent { button("Delete", VaadinIcon.CHECK.create()) {
+ *          setConfirmIsDanger()
+ *          onClick {...}
+ *      }
+ * })
+ * ```
+ */
 @VaadinDsl
-public fun <TComponent : Component> (@VaadinDsl Upload).button(block: (@VaadinDsl HasComponents).() -> TComponent) {
+public fun <TComponent : Component> (@VaadinDsl Upload).uploadButton(block: (@VaadinDsl HasComponents).() -> TComponent) {
     element.removeAllChildren()
     uploadButton = buildSingleComponent {
         block()

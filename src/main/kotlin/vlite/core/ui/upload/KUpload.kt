@@ -9,8 +9,8 @@ import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.upload.Receiver
 import com.vaadin.flow.component.upload.Upload
 import elemental.json.Json
-import vlite.core.ui.button
 import vlite.core.ui.i18n.KLocaleChangeObserverA
+import vlite.core.ui.uploadButton
 import vlite.digikamweb.ui.base.i18n.i18n
 import java.io.ByteArrayOutputStream
 import java.io.OutputStream
@@ -80,8 +80,8 @@ class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out String>) : KComposi
         uploadComponent?.element?.setPropertyJson("files", Json.createArray())
     }
 
-    fun button(block: (@VaadinDsl HasComponents).() -> Component) {
-        uploadComponent!!.button(block)
+    fun uploadButton(block: (@VaadinDsl HasComponents).() -> Component) {
+        uploadComponent!!.uploadButton(block)
         uploadComponent!!.isDropAllowed = false
         clearUploadedFileList()
     }

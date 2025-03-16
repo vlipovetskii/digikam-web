@@ -124,7 +124,7 @@ class PhotoDetailsEditor(
             BasePhotoA.MIME_TYPE,
         ) {
 
-            button { image(photoStorage.personPhoto(personName)) }
+            uploadButton { image(photoStorage.personPhoto(personName)) }
 
             onFileReceived = { fileName, fileMimeType, fileContent ->
                 // "`$fileName`, `$fileMimeType`, `${fileContent.size}`".notifyInfo()
@@ -133,7 +133,7 @@ class PhotoDetailsEditor(
                     personName,
                     fileContent
                 )
-                button { image(newPersonPhoto) }
+                uploadButton { image(newPersonPhoto) }
             }
 
         }
@@ -144,7 +144,7 @@ class PhotoDetailsEditor(
                 personName,
                 event.imageBytes.toFormat()
             )
-            upload.button { image(newPersonPhoto) }
+            upload.uploadButton { image(newPersonPhoto) }
         }
 
         icon(VaadinIcon.PASTE) {
