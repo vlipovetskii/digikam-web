@@ -3,7 +3,6 @@
 package vlite.core.ui.upload
 
 import com.github.mvysny.karibudsl.v10.*
-import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.HasComponents
 import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.upload.Receiver
@@ -80,7 +79,7 @@ class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out String>) : KComposi
         uploadComponent?.element?.setPropertyJson("files", Json.createArray())
     }
 
-    fun uploadButton(block: (@VaadinDsl HasComponents).() -> Component) {
+    fun uploadButton(block: (@VaadinDsl HasComponents).() -> Unit) {
         uploadComponent!!.uploadButton(block)
         uploadComponent!!.isDropAllowed = false
         clearUploadedFileList()

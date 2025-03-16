@@ -67,28 +67,19 @@ public fun <C : Component> (@VaadinDsl Scroller).content(block: (@VaadinDsl HasC
     return content as C
 }
 
-// TODO PR
+// TODO Remove after release karibu-dsl 2.4.0
 /**
- * Example of usage:
+ * Creates the [Upload.uploadButton] in a DSL fashion:
  * ```kotlin
- * upload(...) {
- *
- *  uploadButton = uploadButton(buildSingleComponent { button() })
- *
+ * upload {
+ *   uploadButton { span("Hello!") }
  * }
- * setConfirmButton(buildSingleComponent { button("Delete", VaadinIcon.CHECK.create()) {
- *          setConfirmIsDanger()
- *          onClick {...}
- *      }
- * })
  * ```
  */
 @VaadinDsl
-public fun <TComponent : Component> (@VaadinDsl Upload).uploadButton(block: (@VaadinDsl HasComponents).() -> TComponent) {
+public fun (@VaadinDsl Upload).uploadButton(block: (@VaadinDsl HasComponents).() -> Unit) {
     element.removeAllChildren()
-    uploadButton = buildSingleComponent {
-        block()
-    }
+    uploadButton = buildSingleComponent(block)
 }
 
 /**

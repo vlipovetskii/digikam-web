@@ -7,11 +7,11 @@ import com.vaadin.flow.component.grid.Grid
 
 // TODO PR
 /**
- * Shorthands for convenience
+ * [Grid] Shorthands for convenience
  */
-val <TGridRow> Grid<TGridRow>.selectedRowOrNull get() = selectedItems.firstOrNull()
-val <TGridRow> Grid<TGridRow>.selectedRow: TGridRow get() = selectedItems.first()
-fun <TGridRow> Grid<TGridRow>.refreshRow(row: TGridRow) = dataProvider.refreshItem(row)
+public val <T> Grid<T>.selectedRowOrNull get() = selectedItems.firstOrNull()
+public val <T> Grid<T>.selectedRow: T get() = selectedItems.first()
+public fun <T> Grid<T>.refreshRow(row: T) = dataProvider.refreshItem(row)
 
 // TODO Remove after release karibu-dsl 2.4.0
 @VaadinDsl
