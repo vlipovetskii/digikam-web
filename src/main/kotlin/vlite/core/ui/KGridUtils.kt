@@ -5,13 +5,13 @@ import com.vaadin.flow.component.Component
 import com.vaadin.flow.component.HasComponents
 import com.vaadin.flow.component.grid.Grid
 
-// TODO PR
+// TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
 /**
  * [Grid] Shorthands for convenience
  */
-public val <T> Grid<T>.selectedRowOrNull get() = selectedItems.firstOrNull()
-public val <T> Grid<T>.selectedRow: T get() = selectedItems.first()
-public fun <T> Grid<T>.refreshRow(row: T) = dataProvider.refreshItem(row)
+public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+public val <T> Grid<T>.selectedItem: T get() = selectionModel.firstSelectedItem.get()
+public fun <T> Grid<T>.refreshItem(item: T) = dataProvider.refreshItem(item)
 
 // TODO Remove after release karibu-dsl 2.4.0
 @VaadinDsl

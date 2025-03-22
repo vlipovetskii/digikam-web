@@ -3,6 +3,7 @@ package vlite.digikamweb.domain.objects.base
 import com.drew.metadata.Metadata
 import vlite.core.backend.dateTimeOriginal
 import vlite.core.backend.xmpProperties
+import vlite.core.domain.objects.MimeType
 import kotlin.io.path.exists
 import kotlin.io.path.nameWithoutExtension
 import kotlin.io.path.readBytes
@@ -17,7 +18,7 @@ abstract class BasePhotoA<TPhotoName : BasePhotoNameA> : HasPathA {
     // val imageDataMd5 get() = KMd5.compute(imageData)
 
     companion object {
-        const val MIME_TYPE = "image/jpeg"
+        val MIME_TYPE = MimeType.JPEG
     }
 
     abstract class WithMetadata<TPhotoName : BasePhotoNameA>(val imageMetadata: Metadata) : BasePhotoA<TPhotoName>() {

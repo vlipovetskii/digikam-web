@@ -8,6 +8,7 @@ import com.vaadin.flow.component.html.Div
 import com.vaadin.flow.component.upload.Receiver
 import com.vaadin.flow.component.upload.Upload
 import elemental.json.Json
+import vlite.core.domain.objects.MimeType
 import vlite.core.ui.i18n.KLocaleChangeObserverA
 import vlite.core.ui.uploadButton
 import vlite.digikamweb.ui.base.i18n.i18n
@@ -15,7 +16,7 @@ import java.io.ByteArrayOutputStream
 import java.io.OutputStream
 import java.util.*
 
-class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out String>) : KComposite(),
+class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out MimeType>) : KComposite(),
     KLocaleChangeObserverA {
 
     private var uploadComponent: Upload? = null
@@ -43,7 +44,7 @@ class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out String>) : KComposi
                     isAutoUpload = true
 
                     this.maxFileSize = maxFileSize
-                    this.setAcceptedFileTypes(*acceptedFileTypes)
+                    this.setAcceptedFileTypes(*acceptedFileTypes.map { toString() }.toTypedArray())
 
                     addSucceededListener {
                         onFileReceived(
@@ -67,7 +68,7 @@ class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out String>) : KComposi
     /**
      * [KUpload] API
      */
-    var onFileReceived: (fileName: String, fileMimeType: String, fileContent: ByteArray) -> Unit = {_, _, _ ->}
+    var onFileReceived: (fileName: String, fileMimeType: String, fileContent: ByteArray) -> Unit = { _, _, _ -> }
 
     fun reset() {
         byteArrayOutputStream = ByteArrayOutputStream()
@@ -90,7 +91,7 @@ class KUpload(maxFileSize: Int, acceptedFileTypes: Array<out String>) : KComposi
 @VaadinDsl
 fun (@VaadinDsl HasComponents).upload(
     maxFileSize: Int,
-    vararg acceptedFileTypes: String,
+    vararg acceptedFileTypes: MimeType,
     block: (@VaadinDsl KUpload).() -> Unit = {}
 ) =
     init(KUpload(maxFileSize, acceptedFileTypes), block)

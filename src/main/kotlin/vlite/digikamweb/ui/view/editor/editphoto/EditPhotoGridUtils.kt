@@ -1,8 +1,8 @@
 package vlite.digikamweb.ui.view.editor.editphoto
 
 import com.vaadin.flow.component.grid.Grid
-import vlite.core.ui.refreshRow
-import vlite.core.ui.selectedRow
+import vlite.core.ui.refreshItem
+import vlite.core.ui.selectedItem
 import vlite.digikamweb.domain.objects.Album
 import vlite.digikamweb.domain.objects.PersonName
 import vlite.digikamweb.domain.objects.photo.Photo
@@ -10,8 +10,8 @@ import vlite.digikamweb.domain.services.PhotoPersonMetadataA
 import vlite.digikamweb.domain.services.storage.PhotoStorageA
 
 fun Grid<EditPhotoGridRow>.refreshPhoto(photo: Photo) {
-    selectedRow.photo = photo
-    refreshRow(selectedRow)
+    selectedItem.photo = photo
+    refreshItem(selectedItem)
 }
 
 fun Grid<EditPhotoGridRow>.refreshRows(photoStorage: PhotoStorageA, album: Album, newPhoto: Photo? = null) {
@@ -34,13 +34,13 @@ fun Grid<EditPhotoGridRow>.updateInPhoto(
     add: Boolean
 ) {
 
-    val currentPhotoPersonNames = selectedRow.photo.personNames
+    val currentPhotoPersonNames = selectedItem.photo.personNames
 
     if (add) {
         if (personName !in currentPhotoPersonNames) {
             refreshPhoto(
                 photoPersonMetadata.addPersonName(
-                    selectedRow.photo,
+                    selectedItem.photo,
                     personName
                 )
             )
@@ -49,7 +49,7 @@ fun Grid<EditPhotoGridRow>.updateInPhoto(
         if (personName in currentPhotoPersonNames) {
             refreshPhoto(
                 photoPersonMetadata.removePersonName(
-                    selectedRow.photo,
+                    selectedItem.photo,
                     personName
                 )
             )

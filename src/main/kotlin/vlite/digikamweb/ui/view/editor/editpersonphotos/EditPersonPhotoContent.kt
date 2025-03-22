@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent
 import vlite.core.ui.configureWithFlexGrow
 import vlite.core.ui.content
 import vlite.core.ui.removeContent
-import vlite.core.ui.selectedRow
+import vlite.core.ui.selectedItem
 import vlite.digikamweb.domain.objects.photo.PersonPhoto
 import vlite.digikamweb.domain.services.storage.PhotoStorageA
 import vlite.digikamweb.ui.base.view.BaseAppLayoutA
@@ -79,7 +79,7 @@ TODO How to invoke upload from menu item ?
                             // TODO display deletePhotoButton inside GridRow close to picture
                             deletePersonPhotoMenuItem = deletePersonPhotoMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editPersonPhotoGrid.selectedRow }
+                                selectedRow = { editPersonPhotoGrid.selectedItem }
                             ) { personPhotoToDelete ->
                                 photoStorage.removePersonPhoto(personPhotoToDelete)
                                 refreshGridRows()
@@ -87,7 +87,7 @@ TODO How to invoke upload from menu item ?
 
                             renamePersonPhotoMenuItem = renamePersonPhotoMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editPersonPhotoGrid.selectedRow }
+                                selectedRow = { editPersonPhotoGrid.selectedItem }
                             ) { personPhotoToRename, newPersonPhotoName ->
                                 if (photoStorage.personPhoto(newPersonPhotoName) != null) {
 

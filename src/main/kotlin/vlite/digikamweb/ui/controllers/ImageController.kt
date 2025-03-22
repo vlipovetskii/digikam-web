@@ -64,7 +64,7 @@ class ImageController(
     private fun BasePhotoA<*>.getImage(): ResponseEntity<ByteArray> {
         return try {
             ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, BasePhotoA.MIME_TYPE)
+                .header(HttpHeaders.CONTENT_TYPE, BasePhotoA.MIME_TYPE.toString())
                 .body(imageData)
         } catch (e: IOException) {
             log.error(e.stackTraceToString())

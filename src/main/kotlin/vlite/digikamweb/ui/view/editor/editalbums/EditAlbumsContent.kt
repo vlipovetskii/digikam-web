@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent
 import vlite.core.ui.configureWithFlexGrow
 import vlite.core.ui.content
 import vlite.core.ui.removeContent
-import vlite.core.ui.selectedRow
+import vlite.core.ui.selectedItem
 import vlite.digikamweb.domain.objects.Album
 import vlite.digikamweb.domain.services.storage.PhotoStorageA
 import vlite.digikamweb.ui.base.view.BaseAppLayoutA
@@ -66,7 +66,7 @@ class EditAlbumsContent(
                             // TODO display renameAlbumButton inside GridRow close to picture
                             renameAlbumMenuItem = renameAlbumMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editAlbumsGrid.selectedRow }
+                                selectedRow = { editAlbumsGrid.selectedItem }
                             ) { albumToRename, newAlbumName ->
                                 refreshGridRows(photoStorage.renameAlbum(albumToRename, newAlbumName))
                             }
@@ -74,7 +74,7 @@ class EditAlbumsContent(
                             // TODO display deletePhotoButton inside GridRow close to picture
                             deleteAlbumMenuItem = deleteAlbumMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editAlbumsGrid.selectedRow },
+                                selectedRow = { editAlbumsGrid.selectedItem },
                                 childrenCount = { albumToDelete -> photoStorage.photos(albumToDelete).count() },
                             ) { albumToDelete ->
                                 photoStorage.removeAlbum(albumToDelete)

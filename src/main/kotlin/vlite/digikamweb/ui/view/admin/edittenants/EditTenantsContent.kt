@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent
 import vlite.core.ui.configureWithFlexGrow
 import vlite.core.ui.content
 import vlite.core.ui.removeContent
-import vlite.core.ui.selectedRow
+import vlite.core.ui.selectedItem
 import vlite.digikamweb.domain.objects.EditAccessCode
 import vlite.digikamweb.domain.objects.Tenant
 import vlite.digikamweb.domain.services.storage.TenantStorageA
@@ -70,7 +70,7 @@ class EditTenantsContent(
                             // TODO display renameTenantButton inside GridRow close to picture
                             renameTenantMenuItem = renameTenantMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editTenantsGrid.selectedRow }
+                                selectedRow = { editTenantsGrid.selectedItem }
                             ) { tenantToRename, newTenantName ->
                                 refreshGridRows(
                                     tenantStorage.renameTenant(
@@ -82,7 +82,7 @@ class EditTenantsContent(
 
                             deleteTenantMenuItem = deleteTenantMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editTenantsGrid.selectedRow },
+                                selectedRow = { editTenantsGrid.selectedItem },
                                 childrenCount = { tenantToDelete ->
                                     val photoStorage = tenantStorage.photoStorage(tenantToDelete.name)
                                     Tenant.ChildrenCount(
@@ -98,7 +98,7 @@ class EditTenantsContent(
 
                             changeEditAccessCodeMenuItem = changeEditAccessCodeMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editTenantsGrid.selectedRow },
+                                selectedRow = { editTenantsGrid.selectedItem },
                                 currentEditAccessCode = { tenantToChangeAccessCode ->
                                     val photoStorage = tenantStorage.photoStorage(tenantToChangeAccessCode.name)
                                     photoStorage.editAccessCodeFromFile()

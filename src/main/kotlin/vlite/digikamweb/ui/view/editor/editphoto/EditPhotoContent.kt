@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent
 import vlite.core.ui.configureWithFlexGrow
 import vlite.core.ui.content
 import vlite.core.ui.removeContent
-import vlite.core.ui.selectedRow
+import vlite.core.ui.selectedItem
 import vlite.digikamweb.domain.objects.Album
 import vlite.digikamweb.domain.objects.photo.Photo
 import vlite.digikamweb.domain.services.PhotoPersonMetadataA
@@ -74,7 +74,7 @@ class EditPhotoContent(
                             // TODO display deletePhotoButton inside GridRow close to picture
                             deletePhotoMenuItem = deletePhotoMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editPhotoGrid.selectedRow }
+                                selectedRow = { editPhotoGrid.selectedItem }
                             ) { photoToDelete ->
                                 photoStorage.removePhoto(photoToDelete)
                                 refreshGridRows()
@@ -82,14 +82,14 @@ class EditPhotoContent(
 
                             renamePhotoMenuItem = renamePhotoMenuItem(
                                 appLayoutLocale,
-                                selectedRow = { editPhotoGrid.selectedRow }
+                                selectedRow = { editPhotoGrid.selectedItem }
                             ) { photoToRename, newPhotoName ->
                                 refreshGridRows(photoStorage.renamePhoto(photoToRename, newPhotoName))
                             }
 
                             movePhotoMenuItem = movePhotoMenuItem(
                                 albumsToMoveInto = { photoStorage.albums().filterNot { it == album } },
-                                selectedRow = { editPhotoGrid.selectedRow },
+                                selectedRow = { editPhotoGrid.selectedItem },
                             ) { photoToMove, albumToMoveInto ->
                                 photoStorage.movePhoto(photoToMove, albumToMoveInto)
                                 refreshGridRows()
@@ -122,13 +122,13 @@ class EditPhotoContent(
 
                     photoDetailsEditor = photoDetailsEditor(
                         photoStorage,
-                        selectedRow = { editPhotoGrid.selectedRow },
+                        selectedRow = { editPhotoGrid.selectedItem },
                         updateInPhoto = { add ->
                             editPhotoGrid.updateInPhoto(photoPersonMetadata, this, add)
                         },
                         renamePersonName = { oldPersonName, newPersonName ->
                             photoStorage.renamePersonName(photoPersonMetadata, oldPersonName, newPersonName).also {
-                                editPhotoGrid.refreshRows(photoStorage, album, editPhotoGrid.selectedRow.photo)
+                                editPhotoGrid.refreshRows(photoStorage, album, editPhotoGrid.selectedItem.photo)
                             }
                         },
                     )

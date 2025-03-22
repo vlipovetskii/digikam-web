@@ -8,7 +8,7 @@ import com.vaadin.flow.component.listbox.ListBox
 import com.vaadin.flow.component.orderedlayout.FlexComponent
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout
 import com.vaadin.flow.data.renderer.ComponentRenderer
-import vlite.core.ui.selectedRowOrNull
+import vlite.core.ui.selectedItemOrNull
 import vlite.digikamweb.domain.objects.photo.PersonPhoto
 import vlite.digikamweb.domain.services.storage.PhotoStorageA
 import vlite.digikamweb.ui.base.image
@@ -33,7 +33,7 @@ class PhotoDetails(
 
     fun setPhotoPersonNames() {
         personNameListBox.setItems(
-            (albumGrid.selectedRowOrNull?.photo?.personNames ?: emptySet())
+            (albumGrid.selectedItemOrNull?.photo?.personNames ?: emptySet())
                 .map {
                     photoStorage.personPhoto(it)
                 }

@@ -10,32 +10,32 @@ import com.vaadin.flow.component.confirmdialog.ConfirmDialog
 import com.vaadin.flow.component.icon.Icon
 import com.vaadin.flow.component.icon.VaadinIcon
 
-// TODO PR
+// TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
 /**
- * Sets the confirm button as dangerous, e.g. when you're confirming a deletion action
+ * Sets the button as dangerous, e.g. when you're confirming a deletion action
  * that can not be reversed.
  *
  * Example of usage:
  * ```kotlin
- * setConfirmButton(buildSingleComponent { button("Delete", VaadinIcon.CHECK.create()) {
- *          setConfirmIsDanger()
+ * setConfirmButton(Button("Delete", VaadinIcon.Trash.create()).apply {
+ *          setDanger()
  *          onClick {...}
  *      }
- * })
+ * )
  * ```
  */
-public fun Button.setConfirmIsDanger() {
+public fun Button.setDanger() {
     addThemeVariants(ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_PRIMARY)
 }
 
-// TODO PR
+// TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
 /**
  * Adds a cancel clickable component (e.g. Button) to the dialog; the dialog is closed when the button is clicked.
  * @param clickableComponent custom clickable component.
  *
  * Example of usage:
  * ```kotlin
- * setCloseOnCancel(buildSingleComponent { button("Cancel", VaadinIcon.ARROW_BACKWARD.create()) })
+ * setCloseOnCancel(Button("Cancel", VaadinIcon.ARROW_BACKWARD.create()))
  * ```
  */
 public fun <T> ConfirmDialog.setCloseOnCancel(clickableComponent: T)
@@ -51,7 +51,7 @@ fun ConfirmDialog.standardConfirmButton(text: String? = null, icon: Icon? = Vaad
             text,
             icon
         ) {
-            setConfirmIsDanger()
+            setDanger()
             onClick {
                 onConfirmButtonClick()
             }

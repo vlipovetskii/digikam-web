@@ -3,7 +3,7 @@ package vlite.digikamweb.ui.base.view
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.grid.Grid.SelectionMode
 import com.vaadin.flow.component.grid.GridVariant
-import vlite.core.ui.selectedRowOrNull
+import vlite.core.ui.selectedItemOrNull
 
 typealias OnRowSelected<TGridRow> = Grid<TGridRow>.(isRowSelected: Boolean) -> Unit
 
@@ -14,7 +14,7 @@ fun <TGridRow> Grid<TGridRow>.addAppThemeVariants() {
 fun <TGridRow> Grid<TGridRow>.addAppSelectionListener(onRowSelected: OnRowSelected<TGridRow>) {
     selectionMode = SelectionMode.SINGLE
     addSelectionListener {
-        onRowSelected(selectedRowOrNull != null)
+        onRowSelected(selectedItemOrNull != null)
     }
 }
 
