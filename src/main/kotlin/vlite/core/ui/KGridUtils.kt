@@ -7,10 +7,20 @@ import com.vaadin.flow.component.grid.Grid
 
 // TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
 /**
- * [Grid] Shorthands for convenience
+ * Returns the currently selected item. Returns null if nothing is selected.
+ * If the Grid is multi-select, returns arbitrary selected item.
  */
 public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+// TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
+/**
+ * Returns the currently selected item. Fails if nothing is selected.
+ * If the Grid is multi-select, returns arbitrary selected item.
+ */
 public val <T> Grid<T>.selectedItem: T get() = selectionModel.firstSelectedItem.get()
+// TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
+/**
+ * Shorthand for [com.vaadin.flow.data.provider.DataProvider.refreshItem].
+ */
 public fun <T> Grid<T>.refreshItem(item: T) = dataProvider.refreshItem(item)
 
 // TODO Remove after release karibu-dsl 2.4.0

@@ -18,7 +18,7 @@ abstract class BasePhotoA<TPhotoName : BasePhotoNameA> : HasPathA {
     // val imageDataMd5 get() = KMd5.compute(imageData)
 
     companion object {
-        val MIME_TYPE = MimeType.JPEG
+        val MIME_TYPE = MimeType.IMAGE_JPEG
     }
 
     abstract class WithMetadata<TPhotoName : BasePhotoNameA>(val imageMetadata: Metadata) : BasePhotoA<TPhotoName>() {
