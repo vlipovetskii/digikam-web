@@ -1,12 +1,13 @@
 package vlite.digikamweb
 
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
 import org.springframework.beans.factory.BeanFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import vlite.AbstractAppTest
+import vlite.core.kTestFactory
 
 /**
  * TODO Cover application code with tests
@@ -18,8 +19,17 @@ class AppTests(
 	@Autowired override val applicationContext: ApplicationContext,
 ) : AbstractAppTest() {
 
-	@Test
-	fun contextLoads() {
+	@TestFactory
+	fun testFactory() = kTestFactory {
+
+		"test1" {
+
+		}
+
+		"test2" {
+
+		}
+
 	}
 
 }
