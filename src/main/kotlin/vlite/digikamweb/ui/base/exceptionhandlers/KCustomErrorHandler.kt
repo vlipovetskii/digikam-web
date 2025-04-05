@@ -15,6 +15,7 @@ import vlite.core.classLogger
 import vlite.core.ui.KNotification
 import vlite.digikamweb.ui.base.view.access.AccessErrorView
 
+@Suppress("unused")
 @ControllerAdvice
 class KCustomErrorHandler : KCustomErrorHandlerA {
 

@@ -2,6 +2,8 @@ package vlite
 
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10.Routes
+import com.github.mvysny.kaributesting.v10.spring.MockSpringServlet
+import com.vaadin.flow.component.UI
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.BeanFactory
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.getBean
 import org.springframework.context.ApplicationContext
 import vlite.core.KLoggerA
 import vlite.core.classLogger
+import vlite.core.doOperationWithLogging
 import vlite.digikamweb.domain.services.storage.TenantStorageA
 import vlite.digikamweb.domain.services.storage.clean
 
@@ -24,19 +27,24 @@ abstract class AbstractAppTest {
         // since there is no servlet environment, Flow won't auto-detect the @Routes.
         // We need to auto-discover all @Routes
         // and populate the RouteRegistry properly.
-        private val routes = Routes().autoDiscoverViews("com.vaadin.starter")
+        private val routes = Routes().autoDiscoverViews("vlite")
 
         private val log by lazy { classLogger }
     }
 
     @BeforeEach
     fun setupVaadin() {
-        MockVaadin.setup(routes)
+        //MockVaadin.setup(routes)
+        log.doOperationWithLogging("MockVaadin.setup") {
+            MockVaadin.setup({ UI() }, MockSpringServlet(routes, applicationContext) { UI() })
+        }
     }
 
     @AfterEach
     fun tearDownVaadin() {
-        MockVaadin.tearDown()
+        log.doOperationWithLogging("MockVaadin.tearDown") {
+            MockVaadin.tearDown()
+        }
     }
 
     // it's a good practice to clear up the db before every test,
