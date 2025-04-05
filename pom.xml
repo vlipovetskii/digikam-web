@@ -29,11 +29,11 @@
     <properties>
         <java.version>23</java.version>
         <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-maven-plugin -->
-        <kotlin.version>2.1.10</kotlin.version>
+        <kotlin.version>2.1.20</kotlin.version>
         <!-- Maven https://kotlinlang.org/docs/maven.html -->
         <kotlin.compiler.apiVersion>2.1</kotlin.compiler.apiVersion>
         <!-- https://mvnrepository.com/artifact/com.vaadin/vaadin-spring-boot-starter -->
-        <vaadin.version>24.6.6</vaadin.version>
+        <vaadin.version>24.7.1</vaadin.version>
         <!-- https://mvnrepository.com/artifact/com.github.mvysny.karibudsl/karibu-dsl -->
         <karibu-dsl.version>2.3.2</karibu-dsl.version>
         <!-- https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor -->
