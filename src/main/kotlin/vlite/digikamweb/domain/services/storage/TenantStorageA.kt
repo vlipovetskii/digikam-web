@@ -17,6 +17,9 @@ interface TenantStorageA : BaseStorageA {
 
     // fun allTenants(): Sequence<Tenant>
 
+    fun initialize(log: Logger, editAccessCode: EditAccessCode)
+    fun delete(log: Logger, )
+
     interface Holder {
         val tenantStorage: TenantStorageA
     }

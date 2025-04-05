@@ -73,4 +73,16 @@ class TenantStorage(
         }
     }
 
+    override fun initialize(log: Logger, editAccessCode: EditAccessCode) {
+        log.doOperationWithLogging(operationTag = "TenantStorageA.initialize(****)") {
+            fileStorage.initialize(editAccessCode.value)
+        }
+    }
+
+    override fun delete(log: Logger) {
+        log.doOperationWithLogging(operationTag = "TenantStorageA.delete()") {
+            fileStorage.delete()
+        }
+    }
+
 }

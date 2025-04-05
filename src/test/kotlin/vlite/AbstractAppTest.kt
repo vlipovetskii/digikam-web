@@ -12,8 +12,8 @@ import org.springframework.context.ApplicationContext
 import vlite.core.KLoggerA
 import vlite.core.classLogger
 import vlite.core.doOperationWithLogging
+import vlite.digikamweb.domain.objects.EditAccessCode
 import vlite.digikamweb.domain.services.storage.TenantStorageA
-import vlite.digikamweb.domain.services.storage.clean
 
 /**
  * Properly configures the app in the test context, so that the app is properly initialized, and the database is emptied before every test.
@@ -30,6 +30,8 @@ abstract class AbstractAppTest {
         private val routes = Routes().autoDiscoverViews("vlite")
 
         private val log by lazy { classLogger }
+
+        val ADMIN_EDIT_ACCESS_CODE = EditAccessCode("1234")
     }
 
     @BeforeEach
@@ -50,10 +52,10 @@ abstract class AbstractAppTest {
     // it's a good practice to clear up the db before every test,
     // to start every test with a predefined state.
     @BeforeEach
-//    @AfterEach
-    fun cleanupDb() {
-        // CategoryService.deleteAll(); ReviewService.deleteAll()
+    fun cleanupStorage() {
         val tenantStorage = beanFactory.getBean<TenantStorageA>()
-        tenantStorage.clean(log)
+        tenantStorage.delete(log)
+        tenantStorage.initialize(log, ADMIN_EDIT_ACCESS_CODE)
     }
+
 }
