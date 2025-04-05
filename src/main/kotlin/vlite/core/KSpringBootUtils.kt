@@ -8,7 +8,7 @@ inline fun <reified TSpringApplication : Any> buildApplication(block: SpringAppl
     SpringApplicationBuilder(TSpringApplication::class.java).apply(block)
 }
 
-fun SpringApplicationBuilder.fromBeans(init: BeanDefinitionDsl.() -> Unit) {
+fun SpringApplicationBuilder.from(init: BeanDefinitionDsl.() -> Unit) {
     initializers(beans { init() })
 }
 

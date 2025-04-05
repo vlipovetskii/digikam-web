@@ -4,10 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import vlite.core.andRun
 import vlite.core.buildApplication
-import vlite.core.fromBeans
-import vlite.digikamweb.backend.backendBeans
-import vlite.digikamweb.domain.services.domainServicesBeans
-import vlite.digikamweb.ui.*
+import vlite.core.from
 
 @EnableWebMvc
 //@EnableVaadin("vlite")
@@ -16,27 +13,7 @@ class DigikamWebApplication
 
 fun main(args: Array<String>) {
     buildApplication<DigikamWebApplication> {
-        fromBeans {
-
-            uiBaseBeans()
-
-            backendBeans()
-
-            domainServicesBeans()
-
-            run {
-                uiAlbumBeans()
-                uiPeopleBeans()
-            }
-
-            run {
-                uiEditPhotoBeans()
-                uiEditPersonPhotoBeans()
-                uiEditAlbumsBeans()
-                uiEditTenantsBeans()
-            }
-
-        }
+        from { appBeans() }
         andRun(args)
     }
 }
