@@ -10,7 +10,7 @@ import com.vaadin.flow.component.grid.Grid
  * Returns the currently selected item. Returns null if nothing is selected.
  * If the Grid is multi-select, returns arbitrary selected item.
  */
-public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElseGet(null)
+public val <T> Grid<T>.selectedItemOrNull: T? get() = selectionModel.firstSelectedItem.orElse(null)
 // TODO Remove after release karibu-dsl 2.4.0 (karibu-tools 0.25)
 /**
  * Returns the currently selected item. Fails if nothing is selected.
