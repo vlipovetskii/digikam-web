@@ -38,8 +38,8 @@
         <karibu-dsl.version>2.3.2</karibu-dsl.version>
         <!-- https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor -->
         <drewnoakes-metadata-extractor.version>2.19.0</drewnoakes-metadata-extractor.version>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <junit.version>5.12.1</junit.version>
+        <!-- https://mvnrepository.com/artifact/com.github.mvysny.kaributesting/karibu-testing-v10 -->
+        <karibu-testing.version>2.2.2</karibu-testing.version>
     </properties>
 
     <dependencies>
@@ -105,10 +105,12 @@
             <artifactId>kotlin-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.mvysny.kaributesting/karibu-testing-v24 -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
+            <groupId>com.github.mvysny.kaributesting</groupId>
+            <artifactId>karibu-testing-v24</artifactId>
+            <version>${karibu-testing.version}</version>
             <scope>test</scope>
         </dependency>
 

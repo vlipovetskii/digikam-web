@@ -7,7 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest
  * TODO Cover application code with tests
  */
 @SpringBootTest
-class DigikamwebApplicationTests {
+class AppTests1(
+//	@Autowired override val beanFactory: BeanFactory,
+//	@Autowired override val applicationContext: ApplicationContext,
+)  {
 
 	@Test
 	fun contextLoads() {
