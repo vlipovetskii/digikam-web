@@ -1,6 +1,7 @@
 package vlite.digikamweb.domain.services.storage
 
 import org.slf4j.Logger
+import vlite.core.doOperationWithLogging
 import vlite.digikamweb.backend.FilePhotoStorage
 import vlite.digikamweb.backend.FilePhotoStorageA
 import vlite.digikamweb.backend.FileTenantStorageA
@@ -40,23 +41,35 @@ class TenantStorage(
             .sortedByDescending { it.name.value }
     }
 
-    override fun addTenant(tenantName: TenantName, editAccessCode: EditAccessCode) : Tenant {
-        filePhotoStorage(tenantName).apply {
-            addDirectory()
-            addPeopleDirectory()
+    override fun addTenant(log: Logger, tenantName: TenantName, editAccessCode: EditAccessCode) : Tenant {
+        log.doOperationWithLogging(operationTag = "TenantStorageA.addTenant('${tenantName.value}')") {
+
+            filePhotoStorage(tenantName).apply {
+                addDirectory()
+                addPeopleDirectory()
+            }
+            return tenant(tenantName)
+
         }
-        return tenant(tenantName)
     }
 
-    override fun renameTenant(tenant: Tenant, newTenantName: TenantName) : Tenant {
-        filePhotoStorage(tenant.name).renameDirectory(newTenantName.value)
-        return tenant(newTenantName)
+    override fun renameTenant(log: Logger, tenant: Tenant, newTenantName: TenantName) : Tenant {
+        log.doOperationWithLogging(operationTag = "TenantStorageA.renameTenant('${tenant.name.value}', '${newTenantName.value}')") {
+
+            filePhotoStorage(tenant.name).renameDirectory(newTenantName.value)
+            return tenant(newTenantName)
+
+        }
     }
 
-    override fun removeTenant(tenant: Tenant) {
-        filePhotoStorage(tenant.name).apply {
-            removePeopleDirectory()
-            deleteDirectory()
+    override fun removeTenant(log: Logger, tenant: Tenant) {
+        log.doOperationWithLogging(operationTag = "TenantStorageA.removeTenant('${tenant.name.value}')") {
+
+            filePhotoStorage(tenant.name).apply {
+                removePeopleDirectory()
+                deleteDirectory()
+            }
+
         }
     }
 

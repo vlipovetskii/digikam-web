@@ -20,7 +20,7 @@ class AppTests(
 ) : AbstractAppTest() {
 
 	@TestFactory
-	fun testFactory() = kTestFactory() {
+	fun testFactory() = kTestFactory {
 
 		testGroup("Test group 1") {
 

@@ -12,10 +12,10 @@ open class KTestFactoryBuilder(private val prefix: String) {
         mutableList += DynamicTest.dynamicTest("$prefix$this") { testBlock(this) }
     }
 
-    fun testGroup(groupName :String, block: KTestFactoryBuilder.() -> Unit) {
-        mutableList += DynamicTest.dynamicTest("~~~ $groupName") {  }
+    fun testGroup(groupName: String, block: KTestFactoryBuilder.() -> Unit) {
+        mutableList += DynamicTest.dynamicTest("~~~ $groupName") { }
         mutableList += kTestFactory(".   ", block)
-        mutableList += DynamicTest.dynamicTest("~~~") {  }
+        mutableList += DynamicTest.dynamicTest("~~~") { }
     }
 
 }
