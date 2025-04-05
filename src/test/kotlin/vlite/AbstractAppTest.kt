@@ -3,7 +3,11 @@ package vlite
 import com.github.mvysny.kaributesting.v10.MockVaadin
 import com.github.mvysny.kaributesting.v10.Routes
 import com.github.mvysny.kaributesting.v10.spring.MockSpringServlet
+import com.github.mvysny.kaributools.getRouteUrl
+import com.github.mvysny.kaributools.navigateTo
 import com.vaadin.flow.component.UI
+import com.vaadin.flow.router.RouteParam
+import com.vaadin.flow.router.RouteParameters
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.BeanFactory
@@ -14,6 +18,8 @@ import vlite.core.classLogger
 import vlite.core.doOperationWithLogging
 import vlite.digikamweb.domain.objects.EditAccessCode
 import vlite.digikamweb.domain.services.storage.TenantStorageA
+import vlite.digikamweb.ui.base.view.ViewRouteParameter
+import vlite.digikamweb.ui.view.admin.AdminView
 
 /**
  * Properly configures the app in the test context, so that the app is properly initialized, and the database is emptied before every test.
@@ -31,7 +37,7 @@ abstract class AbstractAppTest {
 
         private val log by lazy { classLogger }
 
-        val ADMIN_EDIT_ACCESS_CODE = EditAccessCode("1234")
+        private val ADMIN_EDIT_ACCESS_CODE = EditAccessCode("1234")
     }
 
     @BeforeEach
@@ -56,6 +62,17 @@ abstract class AbstractAppTest {
         val tenantStorage = beanFactory.getBean<TenantStorageA>()
         tenantStorage.delete(log)
         tenantStorage.initialize(log, ADMIN_EDIT_ACCESS_CODE)
+    }
+
+    protected fun navigateToAdminView() {
+        navigateTo(
+            getRouteUrl(
+                AdminView::class,
+                RouteParameters(
+                    RouteParam(ViewRouteParameter.EditAccessCodeValue().routeParameterName, ADMIN_EDIT_ACCESS_CODE.value)
+                )
+            )
+        )
     }
 
 }

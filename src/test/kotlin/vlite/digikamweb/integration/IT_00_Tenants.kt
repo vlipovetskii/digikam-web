@@ -1,10 +1,6 @@
 package vlite.digikamweb.integration
 
 import com.github.mvysny.kaributesting.v10.expectView
-import com.github.mvysny.kaributools.getRouteUrl
-import com.github.mvysny.kaributools.navigateTo
-import com.vaadin.flow.router.RouteParam
-import com.vaadin.flow.router.RouteParameters
 import org.junit.jupiter.api.TestFactory
 import org.springframework.beans.factory.BeanFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration
 import vlite.AbstractAppTest
 import vlite.core.kTestFactory
 import vlite.digikamweb.AppTestBeansInitializer
-import vlite.digikamweb.ui.base.view.ViewRouteParameter
 import vlite.digikamweb.ui.view.admin.AdminView
 
 @SpringBootTest
@@ -30,14 +25,7 @@ class IT_00_Tenants(
 
         "Add tenant-1" {
 
-            navigateTo(
-                getRouteUrl(
-                    AdminView::class,
-                    RouteParameters(
-                        RouteParam(ViewRouteParameter.EditAccessCodeValue().routeParameterName, "1234")
-                    )
-                )
-            )
+            navigateToAdminView()
             expectView<AdminView>()
 
         }
