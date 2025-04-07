@@ -18,6 +18,7 @@ import vlite.AbstractAppTest
 import vlite.core.kTestFactory
 import vlite.digikamweb.AppTestBeansInitializer
 import vlite.digikamweb.ui.view.admin.AdminView
+import kotlin.test.expect
 
 @SpringBootTest
 @ContextConfiguration(initializers = [AppTestBeansInitializer::class])
@@ -42,19 +43,28 @@ class IT_00_Tenants(
                 with(_get<MenuBar>()) {
                     _expect<MenuItem>(4)
 
+                    expect(_getMenuItemWith(VaadinIcon.PLUS.create()).isEnabled) { true }
+                    expect(_getMenuItemWith(VaadinIcon.EDIT.create()).isEnabled) { false }
+                    expect(_getMenuItemWith(VaadinIcon.TRASH.create()).isEnabled) { false }
+                    expect(_getMenuItemWith(VaadinIcon.PASSWORD.create()).isEnabled) { false }
+
                     _click(_getMenuItemWith(VaadinIcon.PLUS.create()))
 
                     // currentUI._expect<Dialog>()
                     with(currentUI._get<Dialog>()) {
+
+                        val saveButton = _get<Button> {
+                            icon = IconName.of(VaadinIcon.CHECK)
+                        }
+
+                        expect(saveButton.isEnabled) { false }
 
                         val itemTextField = _get<TextField>()
                         itemTextField.value = "1111"
 
                         _expect<Button>(2)
 
-                        val saveButton = _get<Button> {
-                            icon = IconName.of(VaadinIcon.CHECK)
-                        }
+                        expect(saveButton.isEnabled) { true }
                         saveButton._click()
 
                     }
