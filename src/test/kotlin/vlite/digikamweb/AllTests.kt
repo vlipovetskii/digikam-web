@@ -19,6 +19,7 @@ class AllTests(
 	@Autowired override val applicationContext: ApplicationContext,
 ) : KSpringBootTestA {
 
+	@Nested inner class RegexTestsI : RegexTests()
 	@Suppress("ClassName")
 	@Nested inner class IT_00_TenantsI : IT_00_Tenants(beanFactory, applicationContext)
 
