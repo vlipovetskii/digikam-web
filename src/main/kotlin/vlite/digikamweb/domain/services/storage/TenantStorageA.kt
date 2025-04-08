@@ -11,7 +11,7 @@ interface TenantStorageA : BaseStorageA {
 
     fun tenants(): Sequence<Tenant>
 
-    fun addTenant(log: Logger, tenantName: TenantName, editAccessCode: EditAccessCode): Tenant
+    fun addTenant(log: Logger, tenantName: TenantName, editAccessCode: EditAccessCode = EditAccessCode.DEFAULT): Tenant
     fun renameTenant(log: Logger, tenant: Tenant, newTenantName: TenantName): Tenant
     fun removeTenant(log: Logger, tenant: Tenant)
 

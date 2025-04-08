@@ -12,7 +12,6 @@ import vlite.core.ui.configureWithFlexGrow
 import vlite.core.ui.content
 import vlite.core.ui.removeContent
 import vlite.core.ui.selectedItem
-import vlite.digikamweb.domain.objects.EditAccessCode
 import vlite.digikamweb.domain.objects.Tenant
 import vlite.digikamweb.domain.services.storage.TenantStorageA
 import vlite.digikamweb.ui.base.view.BaseAppLayoutA
@@ -70,7 +69,7 @@ class EditTenantsContent(
 
                         menuBar {
                             addTenantMenuItem = addTenantMenuItem(appLayoutLocale) { newTenantName ->
-                                refreshGridRows(tenantStorage.addTenant(log, newTenantName, EditAccessCode("")))
+                                refreshGridRows(tenantStorage.addTenant(log, newTenantName))
                             }
 
                             // TODO display renameTenantButton inside GridRow close to picture
