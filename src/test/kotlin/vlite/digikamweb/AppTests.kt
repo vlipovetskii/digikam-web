@@ -7,7 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import vlite.AbstractAppTest
+import vlite.core.KLoggerA
+import vlite.core.classLogger
 import vlite.core.kTestFactory
+import vlite.digikamweb.integration.IT_00_Tenants
 
 /**
  * TODO Cover application code with tests
@@ -19,24 +22,14 @@ class AppTests(
 	@Autowired override val applicationContext: ApplicationContext,
 ) : AbstractAppTest() {
 
+	companion object : KLoggerA {
+		private val log by lazy { classLogger }
+	}
+
 	@TestFactory
 	fun testFactory() = kTestFactory {
 
-		testGroup("Test group 1") {
-
-			"test1" {
-
-			}
-
-		}
-
-		"test1" {
-
-		}
-
-		"test2" {
-
-		}
+		+IT_00_Tenants(beanFactory, applicationContext).testFactory()
 
 	}
 
