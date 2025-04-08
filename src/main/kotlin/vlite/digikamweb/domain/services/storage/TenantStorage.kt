@@ -42,22 +42,22 @@ class TenantStorage(
     }
 
     override fun addTenant(log: Logger, tenantName: TenantName, editAccessCode: EditAccessCode) : Tenant {
-        log.doOperationWithLogging(operationTag = "TenantStorageA.addTenant('${tenantName.value}')") {
+        return log.doOperationWithLogging(operationTag = "TenantStorageA.addTenant('${tenantName.value}')") {
 
             filePhotoStorage(tenantName).apply {
                 addDirectory()
                 addPeopleDirectory()
             }
-            return tenant(tenantName)
+            tenant(tenantName)
 
         }
     }
 
     override fun renameTenant(log: Logger, tenant: Tenant, newTenantName: TenantName) : Tenant {
-        log.doOperationWithLogging(operationTag = "TenantStorageA.renameTenant('${tenant.name.value}', '${newTenantName.value}')") {
+        return log.doOperationWithLogging(operationTag = "TenantStorageA.renameTenant('${tenant.name.value}', '${newTenantName.value}')") {
 
             filePhotoStorage(tenant.name).renameDirectory(newTenantName.value)
-            return tenant(newTenantName)
+            tenant(newTenantName)
 
         }
     }
