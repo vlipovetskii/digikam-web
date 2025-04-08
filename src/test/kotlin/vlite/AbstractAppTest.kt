@@ -10,9 +10,7 @@ import com.vaadin.flow.router.RouteParam
 import com.vaadin.flow.router.RouteParameters
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.springframework.beans.factory.BeanFactory
 import org.springframework.beans.factory.getBean
-import org.springframework.context.ApplicationContext
 import vlite.core.*
 import vlite.digikamweb.domain.objects.EditAccessCode
 import vlite.digikamweb.domain.services.storage.TenantStorageA
@@ -22,10 +20,7 @@ import vlite.digikamweb.ui.view.admin.AdminView
 /**
  * Properly configures the app in the test context, so that the app is properly initialized, and the database is emptied before every test.
  */
-abstract class AbstractAppTest {
-
-    abstract val beanFactory: BeanFactory
-    abstract val applicationContext : ApplicationContext
+abstract class AbstractAppTest : KSpringBootTestA {
 
     companion object : KLoggerA {
         // since there is no servlet environment, Flow won't auto-detect the @Routes.
