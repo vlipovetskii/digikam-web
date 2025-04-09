@@ -3,6 +3,7 @@ package vlite.digikamweb.integration
 import com.github.mvysny.kaributesting.v10.*
 import com.github.mvysny.kaributools.IconName
 import com.vaadin.flow.component.button.Button
+import com.vaadin.flow.component.confirmdialog.ConfirmDialog
 import com.vaadin.flow.component.contextmenu.MenuItem
 import com.vaadin.flow.component.dialog.Dialog
 import com.vaadin.flow.component.grid.Grid
@@ -20,7 +21,7 @@ import vlite.AbstractAppTest
 import vlite.core.KLoggerA
 import vlite.core.classLogger
 import vlite.digikamweb.AppTestBeansInitializer
-import vlite.digikamweb.domain.objects.TenantName
+import vlite.digikamweb.TestFixtures
 import vlite.digikamweb.domain.services.storage.TenantStorageA
 import vlite.digikamweb.ui.view.admin.AdminView
 import vlite.digikamweb.ui.view.admin.edittenants.EditTenantsGridRow
@@ -46,6 +47,11 @@ class IT_00_Tenants(
         expectView<AdminView>()
 
         with(_get<AdminView>()) {
+
+            val grid = _get<Grid<EditTenantsGridRow>>()
+
+            expect(grid.listDataView.items.count(), "Number of rows in grid") { 0 }
+
             // _expect<MenuBar>()
             // technically _expect is the same as _find, since _expect invokes _find
             // _get also invokes _find, so let's leave _get only
@@ -62,6 +68,8 @@ class IT_00_Tenants(
                 // currentUI._expect<Dialog>()
                 with(currentUI._get<Dialog>()) {
 
+                    _expect<Button>(2)
+
                     val saveButton = _get<Button> {
                         icon = IconName.of(VaadinIcon.CHECK)
                     }
@@ -69,16 +77,18 @@ class IT_00_Tenants(
                     expect(saveButton.isEnabled) { false }
 
                     val itemTextField = _get<TextField>()
-                    itemTextField._setValue("1111")
-
-                    _expect<Button>(2)
+                    itemTextField._setValue(TestFixtures.TENANT_1_NAME.value)
 
                     expect(saveButton.isEnabled) { true }
                     saveButton._click()
 
+
+
                 }
 
             }
+
+            expect(grid.listDataView.items.count(), "Number of rows in grid") { 1 }
         }
 
     }
@@ -87,7 +97,7 @@ class IT_00_Tenants(
     fun `Rename tenant-1`() {
 
         val tenantStorage = beanFactory.getBean<TenantStorageA>()
-        val newTenant = tenantStorage.addTenant(log, TenantName("1111"))
+        val newTenant = tenantStorage.addTenant(log, TestFixtures.TENANT_1_NAME)
 
         navigateToAdminView()
         expectView<AdminView>()
@@ -98,6 +108,8 @@ class IT_00_Tenants(
             // _get also invokes _find, so let's leave _get only
 
             val grid = _get<Grid<EditTenantsGridRow>>()
+
+            expect(grid.listDataView.items.count(), "Number of rows in grid") { 1 }
 
             with(_get<MenuBar>()) {
                 _expect<MenuItem>(4)
@@ -119,6 +131,8 @@ class IT_00_Tenants(
                 // currentUI._expect<Dialog>()
                 with(currentUI._get<Dialog>()) {
 
+                    _expect<Button>(2)
+
                     val saveButton = _get<Button> {
                         icon = IconName.of(VaadinIcon.CHECK)
                     }
@@ -126,12 +140,130 @@ class IT_00_Tenants(
                     expect(saveButton.isEnabled) { false }
 
                     val itemTextField = _get<TextField>()
-                    itemTextField._setValue("1112")
-
-                    _expect<Button>(2)
+                    itemTextField._setValue(TestFixtures.TENANT_1_NAME_MODIFIED.value)
 
                     expect(saveButton.isEnabled) { true }
                     saveButton._click()
+
+                    expect(grid.listDataView.items.count(), "Number of rows in grid") { 1 }
+
+                }
+
+            }
+        }
+
+    }
+
+    @Test
+    fun `Delete tenant-1`() {
+
+        val tenantStorage = beanFactory.getBean<TenantStorageA>()
+        val newTenant = tenantStorage.addTenant(log, TestFixtures.TENANT_1_NAME)
+
+        navigateToAdminView()
+        expectView<AdminView>()
+
+        with(_get<AdminView>()) {
+            // _expect<MenuBar>()
+            // technically _expect is the same as _find, since _expect invokes _find
+            // _get also invokes _find, so let's leave _get only
+
+            val grid = _get<Grid<EditTenantsGridRow>>()
+
+            expect(grid.listDataView.items.count(), "Number of rows in grid") { 1 }
+
+            with(_get<MenuBar>()) {
+                _expect<MenuItem>(4)
+
+                expect(_getMenuItemWith(VaadinIcon.PLUS.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.EDIT.create()).isEnabled) { false }
+                expect(_getMenuItemWith(VaadinIcon.TRASH.create()).isEnabled) { false }
+                expect(_getMenuItemWith(VaadinIcon.PASSWORD.create()).isEnabled) { false }
+
+                grid.select(grid.listDataView.items.asSequence().first { r -> r.tenant == newTenant })
+
+                expect(_getMenuItemWith(VaadinIcon.PLUS.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.EDIT.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.TRASH.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.PASSWORD.create()).isEnabled) { true }
+
+                _click(_getMenuItemWith(VaadinIcon.TRASH.create()))
+
+                // currentUI._expect<ConfirmDialog>()
+                with(currentUI._get<ConfirmDialog>()) {
+
+                    _expect<Button>(2)
+
+                    val confirmButton = _get<Button> {
+                        icon = IconName.of(VaadinIcon.CHECK)
+                    }
+
+                    expect(confirmButton.isEnabled) { true }
+                    confirmButton._click()
+
+
+                    expect(grid.listDataView.items.count(), "Number of rows in grid") { 0 }
+
+                }
+
+            }
+        }
+
+    }
+
+    @Test
+    fun `Set editAccessCode tenant-1`() {
+
+        val tenantStorage = beanFactory.getBean<TenantStorageA>()
+        val newTenant = tenantStorage.addTenant(log, TestFixtures.TENANT_1_NAME)
+
+        navigateToAdminView()
+        expectView<AdminView>()
+
+        with(_get<AdminView>()) {
+            // _expect<MenuBar>()
+            // technically _expect is the same as _find, since _expect invokes _find
+            // _get also invokes _find, so let's leave _get only
+
+            val grid = _get<Grid<EditTenantsGridRow>>()
+
+            expect(grid.listDataView.items.count(), "Number of rows in grid") { 1 }
+
+            with(_get<MenuBar>()) {
+                _expect<MenuItem>(4)
+
+                expect(_getMenuItemWith(VaadinIcon.PLUS.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.EDIT.create()).isEnabled) { false }
+                expect(_getMenuItemWith(VaadinIcon.TRASH.create()).isEnabled) { false }
+                expect(_getMenuItemWith(VaadinIcon.PASSWORD.create()).isEnabled) { false }
+
+                grid.select(grid.listDataView.items.asSequence().first { r -> r.tenant == newTenant })
+
+                expect(_getMenuItemWith(VaadinIcon.PLUS.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.EDIT.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.TRASH.create()).isEnabled) { true }
+                expect(_getMenuItemWith(VaadinIcon.PASSWORD.create()).isEnabled) { true }
+
+                _click(_getMenuItemWith(VaadinIcon.PASSWORD.create()))
+
+                // currentUI._expect<Dialog>()
+                with(currentUI._get<Dialog>()) {
+
+                    _expect<Button>(2)
+
+                    val saveButton = _get<Button> {
+                        icon = IconName.of(VaadinIcon.CHECK)
+                    }
+
+                    expect(saveButton.isEnabled) { false }
+
+                    val itemTextField = _get<TextField>()
+                    itemTextField._setValue(TestFixtures.TENANT_EDIT_ACCESS_CODE.value)
+
+                    expect(saveButton.isEnabled) { true }
+                    saveButton._click()
+
+                    expect(grid.listDataView.items.count(), "Number of rows in grid") { 1 }
 
                 }
 

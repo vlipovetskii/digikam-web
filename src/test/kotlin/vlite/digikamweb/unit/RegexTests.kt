@@ -1,7 +1,6 @@
-package vlite.digikamweb
+package vlite.digikamweb.unit
 
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import vlite.digikamweb.backend.base.storage.BaseFileStorageA
@@ -11,7 +10,7 @@ import kotlin.streams.asStream
 open class RegexTests {
 
     companion object {
-        val VALID_REGEX_PATTERN: Pattern = Pattern.compile(BaseFileStorageA.NAME_VALID_REGEX)
+        val VALID_REGEX_PATTERN: Pattern = Pattern.compile(BaseFileStorageA.Companion.NAME_VALID_REGEX)
     }
 
     @TestFactory
@@ -26,7 +25,7 @@ open class RegexTests {
         "你好世界"
     ).map { input ->
         DynamicTest.dynamicTest("'$input' should be valid") {
-            assertTrue(VALID_REGEX_PATTERN.matcher(input).matches())
+            Assertions.assertTrue(VALID_REGEX_PATTERN.matcher(input).matches())
         }
     }.asStream()
 
@@ -38,7 +37,7 @@ open class RegexTests {
         "part1/part2/part3"
     ).map { input ->
         DynamicTest.dynamicTest("'$input' should be invalid due to slash") {
-            assertFalse(VALID_REGEX_PATTERN.matcher(input).matches())
+            Assertions.assertFalse(VALID_REGEX_PATTERN.matcher(input).matches())
         }
     }.asStream()
 
@@ -50,7 +49,7 @@ open class RegexTests {
         "part1\u0000part2"
     ).map { input ->
         DynamicTest.dynamicTest("'$input' should be invalid due to null character") {
-            assertFalse(VALID_REGEX_PATTERN.matcher(input).matches())
+            Assertions.assertFalse(VALID_REGEX_PATTERN.matcher(input).matches())
         }
     }.asStream()
 
@@ -82,7 +81,7 @@ open class RegexTests {
         "NameWith\\Backslash"
     ).map { input ->
         DynamicTest.dynamicTest("'$input' with other special characters should be valid") {
-            assertTrue(VALID_REGEX_PATTERN.matcher(input).matches())
+            Assertions.assertTrue(VALID_REGEX_PATTERN.matcher(input).matches())
         }
     }.asStream()
 

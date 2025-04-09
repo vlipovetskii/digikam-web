@@ -12,7 +12,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.getBean
 import vlite.core.*
-import vlite.digikamweb.domain.objects.EditAccessCode
+import vlite.digikamweb.TestFixtures
 import vlite.digikamweb.domain.services.storage.TenantStorageA
 import vlite.digikamweb.ui.base.view.ViewRouteParameter
 import vlite.digikamweb.ui.view.admin.AdminView
@@ -30,7 +30,6 @@ abstract class AbstractAppTest : KSpringBootTestA {
 
         private val log by lazy { classLogger }
 
-        private val ADMIN_EDIT_ACCESS_CODE = EditAccessCode("1234")
     }
 
     @BeforeEach
@@ -54,21 +53,15 @@ abstract class AbstractAppTest : KSpringBootTestA {
     fun cleanupStorage() {
         val tenantStorage = beanFactory.getBean<TenantStorageA>()
         tenantStorage.delete(log)
-        tenantStorage.initialize(log, ADMIN_EDIT_ACCESS_CODE)
+        tenantStorage.initialize(log, TestFixtures.ADMIN_EDIT_ACCESS_CODE)
     }
-
-    protected fun testFactory(block: KTestFactoryBuilder.() -> Unit) = kTestFactory(
-        beforeEach = { cleanupStorage(); setupVaadin() },
-        afterEach = { tearDownVaadin() },
-        block= block
-    )
 
     protected fun navigateToAdminView() {
         navigateTo(
             getRouteUrl(
                 AdminView::class,
                 RouteParameters(
-                    RouteParam(ViewRouteParameter.EditAccessCodeValue().routeParameterName, ADMIN_EDIT_ACCESS_CODE.value)
+                    RouteParam(ViewRouteParameter.EditAccessCodeValue().routeParameterName, TestFixtures.ADMIN_EDIT_ACCESS_CODE.value)
                 )
             )
         )
