@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import vlite.core.KSpringBootTestA
-import vlite.digikamweb.integration.IT_00_Tenants
+import vlite.digikamweb.integration.AdminViewTests
 import vlite.digikamweb.unit.RegexTests
 
 /**
@@ -24,8 +24,7 @@ class AllTests(
 	 * [JUnit 5 @Nested Test Classes](https://www.baeldung.com/junit-5-nested-test-classes)
 	 * [2.13. Nested Tests](https://junit.org/junit5/docs/current/user-guide/#writing-tests-nested)
 	 */
-	@Nested inner class RegexTestsI : RegexTests()
-	@Suppress("ClassName")
-	@Nested inner class IT_00_TenantsI : IT_00_Tenants(beanFactory, applicationContext)
+	@Nested inner class RegexTestsNested : RegexTests()
+	@Nested inner class AdminViewTestsNested : AdminViewTests(beanFactory, applicationContext)
 
 }

@@ -31,7 +31,7 @@ import kotlin.test.expect
 @SpringBootTest
 @ContextConfiguration(initializers = [AppTestBeansInitializer::class])
 @Suppress("ClassName")
-class IT_00_Tenants(
+class AdminViewTests(
     @Autowired override val beanFactory: BeanFactory,
     @Autowired override val applicationContext: ApplicationContext,
 ) : AbstractAppTest() {
