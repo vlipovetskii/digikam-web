@@ -7,15 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.test.context.ContextConfiguration
 import vlite.core.KSpringBootTestA
-import vlite.digikamweb.integration.AdminViewTests
-import vlite.digikamweb.unit.RegexTests
+import vlite.digikamweb.integration.AllAppIntegrationTests
+import vlite.digikamweb.unit.AllAppUnitTests
 
-/**
- * TODO Cover application code with tests
- */
 @SpringBootTest
 @ContextConfiguration(initializers = [AppTestBeansInitializer::class])
-class AllTests(
+class AllAppTests(
 	@Autowired override val beanFactory: BeanFactory,
 	@Autowired override val applicationContext: ApplicationContext,
 ) : KSpringBootTestA {
@@ -24,7 +21,7 @@ class AllTests(
 	 * [JUnit 5 @Nested Test Classes](https://www.baeldung.com/junit-5-nested-test-classes)
 	 * [2.13. Nested Tests](https://junit.org/junit5/docs/current/user-guide/#writing-tests-nested)
 	 */
-	@Nested inner class RegexTestsNested : RegexTests()
-	@Nested inner class AdminViewTestsNested : AdminViewTests(beanFactory, applicationContext)
+	@Nested inner class AllAppUnitTestsNested : AllAppUnitTests()
+	@Nested inner class AllAppIntegrationTestsNested : AllAppIntegrationTests(beanFactory, applicationContext)
 
 }

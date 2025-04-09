@@ -40,6 +40,7 @@
         <drewnoakes-metadata-extractor.version>2.19.0</drewnoakes-metadata-extractor.version>
         <!-- https://mvnrepository.com/artifact/com.github.mvysny.kaributesting/karibu-testing-v10 -->
         <karibu-testing.version>2.2.2</karibu-testing.version>
+        <mockk-version>1.13.17</mockk-version>
     </properties>
 
     <dependencies>
@@ -103,6 +104,13 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.mockk</groupId>
+            <artifactId>mockk-jvm</artifactId>
+            <version>${mockk-version}</version>
             <scope>test</scope>
         </dependency>
 
