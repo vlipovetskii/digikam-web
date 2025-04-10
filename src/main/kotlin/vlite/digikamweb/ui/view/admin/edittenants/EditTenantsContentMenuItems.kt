@@ -147,7 +147,7 @@ fun HasMenuItems.changeEditAccessCodeMenuItem(
     action: (tenantToChangeAccessCode: Tenant, newEditAccessCode: EditAccessCode) -> Unit
 ): MenuItem {
 
-    return item(VaadinIcon.PLUS.create(), {
+    return item(VaadinIcon.PASSWORD.create(), {
 
         val tenantToChangeAccessCode = selectedRow().tenant
 

@@ -7,10 +7,7 @@ import vlite.core.classLogger
 import vlite.core.getRequiredProperty
 import vlite.digikamweb.backend.base.storage.BaseFileStorageA
 import java.nio.file.Path
-import kotlin.io.path.isDirectory
-import kotlin.io.path.isHidden
-import kotlin.io.path.listDirectoryEntries
-import kotlin.io.path.name
+import kotlin.io.path.*
 
 class FileTenantStorage(
     env: Environment
@@ -32,6 +29,15 @@ class FileTenantStorage(
         require(parent == homePath) { "`$parent` != `$homePath`" }
     }
 */
+
+    override fun initialize(editAccessCode: String) {
+        homePath.createDirectory()
+        editAccessCodeToFile(editAccessCode)
+    }
+
+    override fun delete() {
+        homePath.deleteDirectory()
+    }
 
     override fun tenantDirectories(): Sequence<Path> {
         return homePath

@@ -34,12 +34,8 @@ interface BaseFileStorageA {
          * ```
          *
          * Valid linux file name MUST not contain / and \0.
-         *
-         * [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Reserved_characters)
-         * Reserved characters after percent-encoding
-         * '/' -> %2F
          */
-        const val NAME_VALID_REGEX = "^[^%2F\\x00]+$"
+        const val NAME_VALID_REGEX = "^[^/\\x00]+$"
     }
 
     interface Implementation : BaseFileStorageA, EditAccessCodeFileA.Implementation {

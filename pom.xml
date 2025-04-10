@@ -40,6 +40,7 @@
         <drewnoakes-metadata-extractor.version>2.19.0</drewnoakes-metadata-extractor.version>
         <!-- https://mvnrepository.com/artifact/com.github.mvysny.kaributesting/karibu-testing-v10 -->
         <karibu-testing.version>2.2.2</karibu-testing.version>
+        <mockk-version>1.13.17</mockk-version>
     </properties>
 
     <dependencies>
@@ -106,7 +107,20 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.github.mvysny.kaributesting/karibu-testing-v24 -->
+        <dependency>
+            <groupId>io.mockk</groupId>
+            <artifactId>mockk-jvm</artifactId>
+            <version>${mockk-version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.mvysny.kaributesting/karibu-testing-v10-spring -->
+        <dependency>
+            <groupId>com.github.mvysny.kaributesting</groupId>
+            <artifactId>karibu-testing-v10-spring</artifactId>
+            <version>${karibu-testing.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.github.mvysny.kaributesting</groupId>
             <artifactId>karibu-testing-v24</artifactId>

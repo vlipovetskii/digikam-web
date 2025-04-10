@@ -6,11 +6,12 @@ import com.github.mvysny.karibudsl.v10.verticalLayout
 import com.vaadin.flow.component.contextmenu.MenuItem
 import com.vaadin.flow.component.grid.Grid
 import com.vaadin.flow.component.orderedlayout.FlexComponent
+import vlite.core.KLoggerA
+import vlite.core.classLogger
 import vlite.core.ui.configureWithFlexGrow
 import vlite.core.ui.content
 import vlite.core.ui.removeContent
 import vlite.core.ui.selectedItem
-import vlite.digikamweb.domain.objects.EditAccessCode
 import vlite.digikamweb.domain.objects.Tenant
 import vlite.digikamweb.domain.services.storage.TenantStorageA
 import vlite.digikamweb.ui.base.view.BaseAppLayoutA
@@ -24,6 +25,10 @@ class EditTenantsContent(
     private lateinit var renameTenantMenuItem: MenuItem
     private lateinit var deleteTenantMenuItem: MenuItem
     private lateinit var changeEditAccessCodeMenuItem: MenuItem
+
+    companion object : KLoggerA {
+        private val log by lazy { classLogger }
+    }
 
     override fun BaseAppLayoutA.populate(tenantStorage: TenantStorageA) {
 
@@ -64,7 +69,7 @@ class EditTenantsContent(
 
                         menuBar {
                             addTenantMenuItem = addTenantMenuItem(appLayoutLocale) { newTenantName ->
-                                refreshGridRows(tenantStorage.addTenant(newTenantName, EditAccessCode("")))
+                                refreshGridRows(tenantStorage.addTenant(log, newTenantName))
                             }
 
                             // TODO display renameTenantButton inside GridRow close to picture
@@ -74,6 +79,7 @@ class EditTenantsContent(
                             ) { tenantToRename, newTenantName ->
                                 refreshGridRows(
                                     tenantStorage.renameTenant(
+                                        log,
                                         tenantToRename,
                                         newTenantName
                                     )
@@ -92,7 +98,7 @@ class EditTenantsContent(
                                     )
                                 },
                             ) { tenantToDelete ->
-                                tenantStorage.removeTenant(tenantToDelete)
+                                tenantStorage.removeTenant(log, tenantToDelete)
                                 refreshGridRows()
                             }
 

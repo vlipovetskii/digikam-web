@@ -14,6 +14,8 @@ value class EditAccessCode(override val value: String) : KHasValidationA.NotEmpt
         private const val VALID_REGEX = "^[a-zA-Z0-9\\-]{$MINIMUM_LENGTH,}$"
         private val VALID_REGEX_PATTERN: Pattern = Pattern.compile(VALID_REGEX)
 
+        val DEFAULT = EditAccessCode("")
+
     }
 
     override val isValid get() = super.isValid && VALID_REGEX_PATTERN.matcher(value).matches()

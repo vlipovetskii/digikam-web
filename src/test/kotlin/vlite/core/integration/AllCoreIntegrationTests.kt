@@ -1,25 +1,19 @@
-package vlite.digikamweb
+package vlite.core.integration
 
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.BeanFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.test.context.ContextConfiguration
-import vlite.AbstractAppTest
+import vlite.core.CoreTestBeansInitializer
+import vlite.core.KSpringBootTestA
 
-/**
- * TODO Cover application code with tests
- */
 @SpringBootTest
-@ContextConfiguration(initializers = [AppTestBeansInitializer::class])
-class AppTests(
+@ContextConfiguration(initializers = [CoreTestBeansInitializer::class])
+class AllCoreIntegrationTests(
 	@Autowired override val beanFactory: BeanFactory,
 	@Autowired override val applicationContext: ApplicationContext,
-) : AbstractAppTest() {
+) : KSpringBootTestA {
 
-	@Test
-	fun contextLoads() {
-	}
 
 }

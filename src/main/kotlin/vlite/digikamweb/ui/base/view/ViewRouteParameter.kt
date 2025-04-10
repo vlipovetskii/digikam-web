@@ -9,7 +9,7 @@ import kotlin.jvm.optionals.getOrNull
 import kotlin.properties.Delegates
 
 sealed class ViewRouteParameter<TRouteParameterValue : Any>(
-    private val routeParameterName: String
+    val routeParameterName: String
 ) {
 
     /**

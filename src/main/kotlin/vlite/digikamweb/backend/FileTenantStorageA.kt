@@ -5,6 +5,9 @@ import java.nio.file.Path
 
 interface FileTenantStorageA : BaseFileStorageA {
 
+    fun initialize(editAccessCode: String)
+    fun delete()
+
     fun tenantDirectories(): Sequence<Path>
     fun tenantDirectory(dirName: String): Path
 
