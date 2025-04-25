@@ -2,8 +2,8 @@ package vlite.digikamweb.ui
 
 import org.springframework.context.support.BeanDefinitionDsl
 import vlite.core.beanPrototype
+import vlite.core.ui.session.KAppServiceInitListener
 import vlite.digikamweb.ui.base.i18n.AppI18NProvider
-import vlite.digikamweb.ui.session.AppServiceInitListener
 import vlite.digikamweb.ui.view.admin.edittenants.EditTenantsContent
 import vlite.digikamweb.ui.view.editor.editalbums.EditAlbumsContent
 import vlite.digikamweb.ui.view.editor.editpersonphotos.EditPersonPhotoContent
@@ -25,7 +25,7 @@ fun BeanDefinitionDsl.uiBaseBeans() {
          * 	- KCustomErrorHandler: defined in file [vlite/digikamweb/ui/base/exceptionhandlers/KCustomErrorHandler.class]
          * WO: Comment bean { KCustomErrorHandler() } and leave bean declared implicitly by @ControllerAdvice
          */
-        bean { AppServiceInitListener(ref()) }
+        bean { KAppServiceInitListener(ref()) }
     }
 
     bean { AppI18NProvider() }

@@ -1,4 +1,4 @@
-package vlite.digikamweb.ui.session
+package vlite.core.ui.session
 
 import com.vaadin.flow.server.ServiceInitEvent
 import com.vaadin.flow.server.VaadinServiceInitListener
@@ -10,7 +10,7 @@ import vlite.core.ui.exceptionhandlers.KCustomErrorHandlerA
  * [Session & UI Listeners](https://vaadin.com/docs/latest/flow/advanced/session-and-ui-init-listener)
  */
 @Suppress("unused")
-open class AppServiceInitListener(
+open class KAppServiceInitListener(
     override val customErrorHandler: KCustomErrorHandlerA,
 ) : VaadinServiceInitListener,
     KCustomErrorHandlerA.Holder {
