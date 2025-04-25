@@ -18,10 +18,6 @@ where TProvidedLocales: Enum<TProvidedLocales>, TProvidedLocales: KEnumI18NProvi
         val locale: Locale
     }
 
-    interface ProvidedTranslationsA {
-        fun translation(locale: Locale): String
-    }
-
     /**
      * [Locale Selection for New Session](https://vaadin.com/docs/latest/flow/advanced/i18n-localization#locale-selection-for-new-session)
      * The initial locale is determined by matching the locales provided by the I18NProvider

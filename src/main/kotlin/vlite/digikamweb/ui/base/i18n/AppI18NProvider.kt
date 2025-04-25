@@ -1,5 +1,6 @@
 package vlite.digikamweb.ui.base.i18n
 
+import vlite.core.domain.objects.KProvidedTranslationsA
 import vlite.core.ui.i18n.KEnumI18NProviderA
 import java.util.*
 
@@ -11,7 +12,7 @@ class AppI18NProvider : KEnumI18NProviderA<AppI18NProvider.ProvidedLocales>(Prov
         HE(Locale.of("he")),
     }
 
-    interface ProvidedValuesA : KEnumI18NProviderA.ProvidedTranslationsA {
+    interface ProvidedValuesA : KProvidedTranslationsA {
         val en: String
         val ru: String
         val he: String
