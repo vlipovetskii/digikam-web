@@ -9,10 +9,10 @@ import vlite.core.from
 @EnableWebMvc
 //@EnableVaadin("vlite")
 @SpringBootApplication
-class DigikamWebApplication
+class WebApplication
 
 fun main(args: Array<String>) {
-    buildApplication<DigikamWebApplication> {
+    buildApplication<WebApplication> {
         from { appBeans() }
         andRun(args)
     }
