@@ -3,7 +3,7 @@ package vlite.digikamweb.ui.session
 import com.vaadin.flow.server.ServiceInitEvent
 import com.vaadin.flow.server.VaadinServiceInitListener
 import com.vaadin.flow.server.VaadinSession
-import vlite.digikamweb.ui.base.exceptionhandlers.KCustomErrorHandlerA
+import vlite.core.ui.exceptionhandlers.KCustomErrorHandlerA
 
 
 /**

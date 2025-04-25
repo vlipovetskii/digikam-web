@@ -1,4 +1,4 @@
-package vlite.digikamweb.ui.base.exceptionhandlers
+package vlite.core.ui.exceptionhandlers
 
 import com.vaadin.flow.component.html.Span
 import com.vaadin.flow.dom.Element
@@ -8,24 +8,19 @@ import com.vaadin.flow.router.NotFoundException
 import com.vaadin.flow.server.ErrorEvent
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.web.HttpRequestMethodNotSupportedException
-import org.springframework.web.bind.annotation.ControllerAdvice
-import org.springframework.web.bind.annotation.ExceptionHandler
 import vlite.core.KLoggerA
 import vlite.core.classLogger
 import vlite.core.ui.KNotification
-import vlite.digikamweb.ui.base.view.access.AccessErrorView
 
-@Suppress("unused")
-@ControllerAdvice
-class KCustomErrorHandler : KCustomErrorHandlerA {
+abstract class KCustomErrorHandlerBaseA : KCustomErrorHandlerA {
 
     companion object : KLoggerA {
         private val log by lazy { classLogger }
     }
 
-    private val defaultUserFriendlyMessage: String = "Oops: An error occurred, and we are really sorry about that. Already working on the fix!"
+    protected open val defaultUserFriendlyMessage: String = "Oops: An error occurred, and we are really sorry about that. Already working on the fix!"
 
-    private fun logUncaughtException(source: String, t: Throwable) {
+    protected open fun logUncaughtException(source: String, t: Throwable) {
         log.error("$source: Vaadin UI uncaught exception $t", t)
     }
 
@@ -55,26 +50,23 @@ class KCustomErrorHandler : KCustomErrorHandlerA {
         return HttpServletResponse.SC_INTERNAL_SERVER_ERROR
     }
 
+    abstract fun forwardToAccessErrorView(event: BeforeEnterEvent)
+
     /**
      * PRB: KRouteNotFoundErrorHandler doesn't intercept wrong routes, which contain route parameters
      * WO: [handleErrorAtSpringLevel]
      */
     override fun handleRouteNotFoundError(event: BeforeEnterEvent, parameter: ErrorParameter<NotFoundException>, element: Element): Int {
         log.error("Route: `${event.location.path}` is not supported")
-        AccessErrorView.forwardToMe(event)
+        forwardToAccessErrorView(event)
         return HttpServletResponse.SC_NOT_FOUND
     }
 
-    /**
-     * [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
-     * [4. Solution 3: @ControllerAdvice](https://www.baeldung.com/exception-handling-for-rest-with-spring#controlleradvice)
-     * [Performing a redirect from a spring MVC @ExceptionHandler method](https://stackoverflow.com/questions/14961869/performing-a-redirect-from-a-spring-mvc-exceptionhandler-method)
-     */
-    @Suppress("unused")
-    @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
-    fun handleErrorAtSpringLevel(e: HttpRequestMethodNotSupportedException, response: HttpServletResponse) {
+    abstract fun forwardToAccessErrorView(response: HttpServletResponse)
+
+    open fun handleErrorAtSpringLevel(e: HttpRequestMethodNotSupportedException, response: HttpServletResponse) {
         logUncaughtException("ErrorAtSpringLevel", e)
-        AccessErrorView.forwardToMe(response)
+        forwardToAccessErrorView(response)
     }
 
 }

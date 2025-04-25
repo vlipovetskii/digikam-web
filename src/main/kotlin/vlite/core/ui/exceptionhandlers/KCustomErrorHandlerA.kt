@@ -1,4 +1,4 @@
-package vlite.digikamweb.ui.base.exceptionhandlers
+package vlite.core.ui.exceptionhandlers
 
 import com.vaadin.flow.dom.Element
 import com.vaadin.flow.router.BeforeEnterEvent
