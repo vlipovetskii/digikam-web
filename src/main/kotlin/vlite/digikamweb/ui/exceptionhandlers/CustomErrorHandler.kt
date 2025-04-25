@@ -1,4 +1,4 @@
-package vlite.digikamweb.ui.base.exceptionhandlers
+package vlite.digikamweb.ui.exceptionhandlers
 
 import com.vaadin.flow.router.BeforeEnterEvent
 import jakarta.servlet.http.HttpServletResponse
